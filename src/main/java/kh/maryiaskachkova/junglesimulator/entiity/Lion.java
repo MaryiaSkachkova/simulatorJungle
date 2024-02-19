@@ -20,7 +20,7 @@ public class Lion {
     public int getEnergy() {
         return this.energy;
     }
-    public double getFangsEnergyCoeff(double fangsEnergyCoeff) {
+    public double getFangsEnergyCoeff() {
         return this.fangsEnergyCoeff;
     }
 }
