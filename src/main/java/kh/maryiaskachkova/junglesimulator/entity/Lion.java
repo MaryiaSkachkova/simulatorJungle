@@ -1,4 +1,4 @@
-package kh.maryiaskachkova.junglesimulator.entiity;
+package kh.maryiaskachkova.junglesimulator.entity;
 
 public class Lion {
     //100 hp

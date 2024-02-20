@@ -1,6 +1,6 @@
 package kh.maryiaskachkova.junglesimulator._main;
 
-import kh.maryiaskachkova.junglesimulator.entiity.Lion;
+import kh.maryiaskachkova.junglesimulator.entity.Lion;
 import kh.maryiaskachkova.junglesimulator.util.EventSimulator;
 
 public class _Main {

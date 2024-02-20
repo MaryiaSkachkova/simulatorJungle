@@ -1,6 +1,6 @@
 package kh.maryiaskachkova.junglesimulator.util;
 
-import kh.maryiaskachkova.junglesimulator.entiity.Lion;
+import kh.maryiaskachkova.junglesimulator.entity.Lion;
 
 public class EventSimulator {
     // lion sleep +9 energy;
