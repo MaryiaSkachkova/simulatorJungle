@@ -15,27 +15,27 @@ public class EventSimulator {
     // poacher attacked lion - 45 health;
     public void startSimulation(Lion lion) {
         while (checkStatus(lion)) {
-            int eventNumber = (int) (Math.random() * 100);
-            if (eventNumber >= 0 && eventNumber < 20) {
-                sleepEvent(lion);
-            } else if (eventNumber >= 20 && eventNumber < 25) {
-                runEvent(lion);
-            } else if (eventNumber >= 25 && eventNumber < 35) {
-                jumpEvent(lion);
-            } else if (eventNumber >= 35 && eventNumber < 45) {
-                swimEvent(lion);
-            } else if (eventNumber >= 45 && eventNumber < 60) {
-                lionEatBuffalo(lion);
-            } else if (eventNumber >= 60 && eventNumber < 75) {
-                lionEatZebra(lion);
-            } else if (eventNumber >= 75 && eventNumber < 85) {
-                lionEatBoar(lion);
-            } else if (eventNumber >= 85 && eventNumber < 90) {
-                lionFightHyena(lion);
-            } else if (eventNumber >= 90 && eventNumber < 95) {
-                lionFightLioness(lion);
-            } else if (eventNumber >= 95 && eventNumber < 100) {
-                poacherAttacked(lion);
+            int actionChoice = (int) (Math.random() * 100);
+            if (actionChoice >= 0 && actionChoice < 20) {
+                animalSleep(lion);
+            } else if (actionChoice >= 20 && actionChoice < 25) {
+                animalRun(lion);
+            } else if (actionChoice >= 25 && actionChoice < 35) {
+                animalJump(lion);
+            } else if (actionChoice >= 35 && actionChoice < 45) {
+                animalSwim(lion);
+            } else if (actionChoice >= 45 && actionChoice < 60) {
+                animalEatBuffalo(lion);
+            } else if (actionChoice >= 60 && actionChoice < 75) {
+                animalEatZebra(lion);
+            } else if (actionChoice >= 75 && actionChoice < 85) {
+                animalEatBoar(lion);
+            } else if (actionChoice >= 85 && actionChoice < 90) {
+                animalFightHyena(lion);
+            } else if (actionChoice >= 90 && actionChoice < 95) {
+                animalFightLioness(lion);
+            } else if (actionChoice >= 95 && actionChoice < 100) {
+                animalAttackedPoacher(lion);
             }
             try {
                 Thread.sleep(1000);
@@ -46,136 +46,116 @@ public class EventSimulator {
         System.out.println("Lion died! The end!");
     }
 
-    private void sleepEvent(Lion lion) {
+    private void animalSleep(Lion lion) {
         int energy = lion.getEnergy();
         energy = energy + 9;
-        if (energy > 100) {
-            energy = 100;
-        }
+        validateEnergy(lion);
         lion.setEnergy(energy);
         checkEnergy(lion);
         System.out.println("Lion sleep! + 9 energy. Current energy: " + lion.getEnergy());
     }
-    private void runEvent(Lion lion) {
+
+    private void animalRun(Lion lion) {
         int energy = lion.getEnergy();
         energy = energy - 8;
-        if (energy < 0) {
-            energy = 0;
-        }
+        validateEnergy(lion);
         lion.setEnergy(energy);
         checkEnergy(lion);
         System.out.println("Lion run! - 8 energy. Current energy: " + lion.getEnergy());
     }
-    private void jumpEvent(Lion lion) {
+
+    private void animalJump(Lion lion) {
         int energy = lion.getEnergy();
         energy = energy - 4;
-        if (energy < 0) {
-            energy = 0;
-        }
+        validateEnergy(lion);
         lion.setEnergy(energy);
         checkEnergy(lion);
         System.out.println("Lion jump! - 4 energy. Current energy: " + lion.getEnergy());
     }
-    private void swimEvent(Lion lion) {
+
+    private void animalSwim(Lion lion) {
         int energy = lion.getEnergy();
         energy = energy - 6;
-        if (energy < 0) {
-            energy = 0;
-        }
+       validateEnergy(lion);
         lion.setEnergy(energy);
         checkEnergy(lion);
         System.out.println("Lion swim! - 6 energy. Current energy: " + lion.getEnergy());
     }
-    private void lionEatBuffalo(Lion lion) {
+
+    private void animalEatBuffalo(Lion lion) {
         int energy = lion.getEnergy();
         int health = lion.getHealth();
         energy = energy - 8;
-        if (energy < 0) {
-            energy = 0;
-        }
-        health = health + (int) lion.getFangsEnergyCoeff() * 4;
-        if (health > 100) {
-            health = 100;
-        }
+        validateEnergy(lion);
+        health = health + (int) lion.getEnergyBonus() * 4;
+        validateHealth(lion);
         lion.setEnergy(energy);
         lion.setHealth(health);
         checkEnergy(lion);
         System.out.println("Lion eat buffalo! Current energy: " + lion.getEnergy() + " , current health: " + lion.getHealth());
     }
-    private void lionEatZebra(Lion lion) {
+
+    private void animalEatZebra(Lion lion) {
         int energy = lion.getEnergy();
         int health = lion.getHealth();
         energy = energy - 10;
-        if (energy < 0) {
-            energy = 0;
-        }
-        health = health + (int) lion.getFangsEnergyCoeff() * 3;
-        if (health > 100) {
-            health = 100;
-        }
+        validateEnergy(lion);
+        health = health + (int) lion.getEnergyBonus() * 3;
+       validateHealth(lion);
         lion.setEnergy(energy);
         lion.setHealth(health);
         checkEnergy(lion);
         System.out.println("Lion eat zebra! Current energy: " + lion.getEnergy() + " , carrent health: " + lion.getHealth());
     }
-    private void lionEatBoar(Lion lion) {
+
+    private void animalEatBoar(Lion lion) {
         int energy = lion.getEnergy();
         int health = lion.getHealth();
         energy = energy - 2;
-        if (energy < 0) {
-            energy = 0;
-        }
-        health = health + (int) lion.getFangsEnergyCoeff() * 2;
-        if (health > 100) {
-            health = 100;
-        }
+        validateEnergy(lion);
+        health = health + (int) lion.getEnergyBonus() * 2;
+        validateHealth(lion);
         lion.setEnergy(energy);
         lion.setHealth(health);
         checkEnergy(lion);
         System.out.println("Lion eat boar! Current energy: " + lion.getEnergy() + " , carrent health: " + lion.getHealth());
     }
-    private void lionFightHyena(Lion lion) {
+
+    private void animalFightHyena(Lion lion) {
         int health = lion.getHealth();
         int energy = lion.getEnergy();
         health = health - 25;
         energy = energy - 10;
-        if (health < 0) {
-            health = 0;
-        }
-        if (energy < 0) {
-            energy = 0;
-        }
+        validateHealth(lion);
+        validateEnergy(lion);
         lion.setHealth(health);
         lion.setEnergy(energy);
         checkEnergy(lion);
         System.out.println("Lion has fight with a hyena! Current health: " + lion.getHealth() + " current energy: " + lion.getEnergy());
     }
-    private void lionFightLioness(Lion lion) {
+
+    private void animalFightLioness(Lion lion) {
         int health = lion.getHealth();
         int energy = lion.getEnergy();
         health = health - 35;
         energy = energy - 25;
-        if (health < 0) {
-            health = 0;
-        }
-        if (energy < 0) {
-            energy = 0;
-        }
+        validateHealth(lion);
+        validateEnergy(lion);
         lion.setHealth(health);
         lion.setEnergy(energy);
         checkEnergy(lion);
         System.out.println("Lion has fight with lioness! Current health: " + lion.getHealth() + " , current energy: " + lion.getEnergy());
     }
-    private void poacherAttacked(Lion lion) {
+
+    private void animalAttackedPoacher(Lion lion) {
         int health = lion.getHealth();
         health = health - 45;
-        if (health < 0) {
-            health = 0;
-        }
+        validateHealth(lion);
         lion.setHealth(health);
         checkEnergy(lion);
         System.out.println("Poacher attacked a lion! Current health: " + lion.getHealth());
     }
+
     private boolean checkStatus(Lion lion) {
         System.out.println("hp: " + lion.getHealth() + " energy: " + lion.getEnergy());
         if (lion.getHealth() <= 0) {
@@ -184,14 +164,30 @@ public class EventSimulator {
             return true;
         }
     }
+
     private void checkEnergy(Lion lion) {
         if (lion.getEnergy() <= 0) {
             int health = lion.getHealth();
             health = health - 6;
-            if (health < 0) {
-                health = 0;
-            }
+            validateHealth(lion);
             lion.setHealth(health);
         }
     }
+
+    private void validateEnergy(Lion lion) {
+        int energy = 0;
+        if (energy < 0) {
+            energy = 0;
+        }
+    }
+
+    private void validateHealth(Lion lion) {
+        int health = 0;
+        if (health > 100) {
+            health = 100;
+        }
+    }
 }
+
+
+
